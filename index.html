@@ -34,13 +34,25 @@
 @media(max-height:650px){.service-board{padding:6px 9px}.service-list{max-height:70px}.service-board~.detail{top:270px;max-height:calc(100% - 420px)}}
 @media(max-width:1099px){.service-board~.detail{top:var(--service-detail-top,330px);max-height:max(80px,calc(100% - var(--service-detail-top,330px) - 166px))}}
 
+/* The summary remains discoverable while the large notice panel fades away. */
+.service-toggle{position:absolute;z-index:6;left:302px;top:145px;max-width:calc(100% - 382px);padding:8px 12px;border:1px solid var(--line);border-left:3px solid #91691f;color:var(--ink);background:var(--glass);font-size:10px;text-align:left;cursor:pointer}
+.service-toggle.has-notices{border-left-color:#b82e3e}
+.service-board{top:184px;transition:opacity .4s ease,transform .4s ease,visibility .4s;opacity:1;transform:translateY(0)}
+.service-board.is-faded{opacity:0;transform:translateY(-6px);visibility:hidden;pointer-events:none}
+@media(max-width:1000px){.service-toggle{max-width:calc(100% - 372px)}}
+@media(max-width:640px){.service-toggle{left:12px;top:157px;max-width:calc(100% - 74px);font-size:9px;padding:7px 9px}.service-board{top:196px}}
+@media(max-width:1099px){.service-board.is-faded~.detail{top:190px;max-height:calc(100% - 356px)}}
+@media(max-width:640px){.service-board.is-faded~.detail{top:200px;max-height:calc(100% - 366px)}}
+@media(prefers-reduced-motion:reduce){.service-board{transition:none}}
+
 </style></head><body>
 <header><button id="mobileToggle" aria-label="Open line list" aria-expanded="false">☰</button><div class="brand"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M10 34V10a5 5 0 0 1 10 0v20a5 5 0 0 0 10 0V6" stroke="#318478" stroke-width="4"/><path d="M4 20h32" stroke="#b6985c" stroke-width="3"/><circle cx="20" cy="20" r="4" fill="#fbfcf9" stroke="#25494a" stroke-width="2"/></svg><div><strong>BANGKOK RAIL ATLAS</strong><small>Railways & the city · 3D</small></div></div><div class="seg" aria-label="Map theme"><button data-theme="map" class="active" aria-pressed="true">Map</button><button data-theme="satellite" aria-pressed="false">Satellite</button><button data-theme="night" aria-pressed="false">Night</button></div><div class="header-tail"><div class="date">NETWORK REFERENCE<br><b>06 SEP 2026</b></div><button id="about" class="icon-button" aria-label="Sources and accuracy">i</button></div></header>
 <main id="map" aria-label="Interactive 3D Bangkok rail map"></main>
+<button id="serviceToggle" class="service-toggle panel" aria-controls="serviceBoard" aria-expanded="true">Service notices · Status unknown</button>
 <section id="serviceBoard" class="service-board panel" aria-label="Service notices"><h2>Service notices <button id="serviceSourceButton">Official sources</button></h2><p id="serviceHeadline" class="service-headline" role="status">Checking available reports…</p><p id="serviceMeta"></p><div id="serviceList" class="service-list"></div></section>
 <aside id="sidebar" class="sidebar panel" aria-label="Lines and stations"><div class="side-top"><div class="eyebrow">GREATER BANGKOK / THAILAND</div><h1>The city.<br>Connected by rail.</h1><div class="search-wrap"><svg viewBox="0 0 20 20" fill="none"><circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.5"/><path d="m12 12 5 5" stroke="currentColor" stroke-width="1.5"/></svg><input id="search" type="search" placeholder="Search station or code" aria-label="Search station or code" autocomplete="off"><button id="clearSearch" class="clear" aria-label="Clear search">×</button></div></div><div class="line-head"><span id="lineHeading">11 services · Scroll for more</span><button id="showAll" class="textbtn">Show all</button></div><div id="lines" class="lines"></div><div id="results" class="search-results" aria-live="polite"></div><div class="layers"><label><input id="roads" type="checkbox" checked>Road names</label><label><input id="buildings" type="checkbox" checked>3D buildings</label><label><input id="underground" type="checkbox" checked>Show tunnels</label><label><input id="stationLabels" type="checkbox" checked>Station names</label><label class="train-size-label">Train size <select id="trainSize" aria-label="Train display size"><option value="1.5">Medium</option><option value="2.2" selected>Large</option><option value="3">Extra large</option></select></label></div></aside>
 <nav class="presets" aria-label="Explore areas"><button data-view="city" class="active">Central</button><button data-view="all">Network</button><button data-view="siam">Siam</button><button data-view="river">Riverside</button><button data-view="airport">Airport</button><button data-view="close">3D close-up</button></nav>
-<div class="view-controls"><button id="north" class="small" aria-label="Reset north">N ↑</button><button id="zoomIn" aria-label="Zoom in">+</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="pitch" class="small" aria-label="Toggle 2D and 3D">2D</button></div>
+<div class="view-controls" aria-label="Map navigation"><button id="rotateLeft" aria-label="Rotate map left" title="Rotate left 30°">↶</button><button id="rotateRight" aria-label="Rotate map right" title="Rotate right 30°">↷</button><button id="north" class="small" aria-label="Reset north">N ↑</button><button id="zoomIn" aria-label="Zoom in">+</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="pitch" class="small" aria-label="Toggle 2D and 3D">2D</button></div>
 <section id="detail" class="detail panel" aria-live="polite"></section>
 <div class="legend panel" aria-label="Legend"><span><i class="key"></i>Elevated / ground</span><span><i class="key tunnel"></i>Underground</span><span><i class="key walk"></i>Walking interchange</span><span><i class="key road"></i>Major roads</span><span><i class="key train"></i>Estimated train</span></div>
 <div class="sim-note panel"><strong>Current clock. Estimated trains.</strong>Positions and speeds follow a timetable-informed model. Live train telemetry and delays are not connected.<br><button class="textbtn about-link">Sources & accuracy ↗</button></div>
@@ -364,6 +376,11 @@ for(const id of ['roads','buildings','underground','stationLabels'])$(id).onchan
 document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>applyTheme(b.dataset.theme));
 const views={city:{center:[100.545,13.745],zoom:13.2,pitch:53,bearing:-12},siam:{center:[100.53422,13.74562],zoom:15.6,pitch:60,bearing:-20},river:{center:[100.5058,13.7234],zoom:14.5,pitch:58,bearing:20},airport:{center:[100.746,13.712],zoom:13.5,pitch:45,bearing:0},close:{center:[100.5328,13.7245],zoom:16.2,pitch:65,bearing:-35}};
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{state.follow=null;closeDetail();document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x===b));if(b.dataset.view==='all'){const bounds=new maplibregl.LngLatBounds();lines.forEach(l=>l.path.forEach(p=>bounds.extend(p.slice(0,2))));map.fitBounds(bounds,{padding:innerWidth>1000?{left:330,right:110,top:110,bottom:190}:{left:30,right:30,top:70,bottom:180},pitch:20,bearing:0,duration:1500});}else fly(views[b.dataset.view]);});
+// Keep native right-drag / two-finger rotation and offer visible touch-friendly controls.
+map.dragRotate.enable();map.touchZoomRotate.enableRotation();
+function rotateMap(delta){state.follow=null;map.stop();map.easeTo({bearing:map.getBearing()+delta,duration:350});}
+$('rotateLeft').onclick=()=>rotateMap(-30);$('rotateRight').onclick=()=>rotateMap(30);
+map.on('rotatestart',()=>{state.follow=null;});
 $('zoomIn').onclick=()=>map.zoomIn();$('zoomOut').onclick=()=>map.zoomOut();$('north').onclick=()=>map.easeTo({bearing:0,duration:800});$('pitch').onclick=()=>map.easeTo({pitch:map.getPitch()>15?0:60,duration:800});map.on('pitchend',()=>{$('pitch').textContent=map.getPitch()>15?'2D':'3D';});map.on('dragstart',()=>{state.follow=null;});
 $('play').onclick=()=>{state.playing=!state.playing;state.timeSync=false;clockUpdate();};$('speed').onchange=()=>{state.speed=Number($('speed').value);state.timeSync=false;};$('day').onchange=()=>{state.weekend=$('day').value==='weekend';state.timeSync=false;rebuildSchedule();};$('timeRange').oninput=()=>{state.seconds=+$('timeRange').value;state.timeSync=false;state.follow=null;clockUpdate();updateActors();};$('now').onclick=()=>{state.timeSync=true;syncClock();state.speed=1;$('speed').value='1';state.playing=true;state.timeSync=true;rebuildSchedule();clockUpdate();};
 function syncClock(){const d=bangkokNow();state.seconds=d.seconds;if(state.calendarDay!==d.day||state.weekend!==d.weekend){state.calendarDay=d.day;state.weekend=d.weekend;rebuildSchedule();}$('day').value=state.weekend?'weekend':'weekday';}
@@ -380,6 +397,21 @@ window.railAtlasDiagnostics=()=>({ready:state.ready,lines:lines.length,stations:
   'use strict';
   const board=document.getElementById('serviceBoard'),list=document.getElementById('serviceList'),headline=document.getElementById('serviceHeadline'),meta=document.getElementById('serviceMeta'),sourceDialog=document.getElementById('serviceSources');
   let feed=RailAlerts.validate(ALERT_SEED,DATA,ALERT_SOURCES),view=RailAlerts.present(feed,DATA),unavailable=false,loadedAt=null,attemptAt=null,inFlight=false,markers=[],signature='',listHtml=null;
+  const toggle=document.getElementById('serviceToggle');
+  let hideTimer=null,noticeStamp=null;
+  function interacting(){return board.matches(':hover')||board.contains(document.activeElement)||toggle===document.activeElement||sourceDialog.open;}
+  function scheduleHide(){clearTimeout(hideTimer);hideTimer=setTimeout(()=>{if(interacting())scheduleHide();else hideBoard();},6000);}
+  function hideBoard(){clearTimeout(hideTimer);board.classList.add('is-faded');board.inert=true;board.setAttribute('aria-hidden','true');toggle.setAttribute('aria-expanded','false');}
+  function showBoard(){board.classList.remove('is-faded');board.inert=false;board.removeAttribute('aria-hidden');toggle.setAttribute('aria-expanded','true');scheduleHide();}
+  toggle.onclick=()=>{if(board.classList.contains('is-faded'))showBoard();else hideBoard();};
+  toggle.addEventListener('pointerleave',scheduleHide);
+  board.addEventListener('pointerenter',()=>clearTimeout(hideTimer));
+  board.addEventListener('pointerleave',scheduleHide);
+  board.addEventListener('focusin',()=>clearTimeout(hideTimer));
+  board.addEventListener('focusout',scheduleHide);
+  toggle.addEventListener('blur',scheduleHide);
+  board.addEventListener('keydown',e=>{if(e.key==='Escape'){toggle.focus();hideBoard();}});
+  sourceDialog.addEventListener('close',scheduleHide);
   const format=value=>value?new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Bangkok',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(value))+' ICT':'Not checked';
   const link=(url,label)=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} ↗</a>`;
   for(const l of lines){const row=document.querySelector(`.line-row[data-line="${l.id}"] .line-select`);if(row){const label=document.createElement('small');label.className='line-alert-status';label.id='alert-line-'+l.id;row.appendChild(label);}}
@@ -427,6 +459,13 @@ window.railAtlasDiagnostics=()=>({ready:state.ready,lines:lines.length,stations:
     view=RailAlerts.present(feed,DATA,Date.now(),unavailable);
     const n=view.notices.length,stale=view.notices.filter(a=>a.phase==='stale').length;
     board.classList.toggle('has-notices',n>0);
+    toggle.classList.toggle('has-notices',n>0);
+    toggle.textContent=n?`Service notices · ${n} notice${n===1?'':'s'}`:'Service notices · Status unknown';
+    const nextStamp=JSON.stringify(view.notices.map(a=>[a.id,a.phase,a.summaryEn,a.stationKeys]));
+    // Routine collection timestamps must not reopen the panel every minute.
+    if(noticeStamp!==null&&nextStamp!==noticeStamp)showBoard();
+    noticeStamp=nextStamp;
+
     headline.textContent=n?`${n} notice${n===1?'':'s'} · ${view.byStation.size} affected station${view.byStation.size===1?'':'s'}${stale?' · '+stale+' unconfirmed':''}`:feed.mode==='not-connected'?'Live disruption data is not connected':'No verified active alerts loaded';
     const message=n?'Station notices stay visible. Train animation remains timetable-based.': 'Service status is unknown. Use Official sources for current announcements.';
     meta.textContent=message+' '+(unavailable?'Update unavailable.':loadedAt?'Collection loaded '+format(loadedAt)+'.':location.protocol==='file:'?'Local snapshot.':'');
@@ -455,7 +494,7 @@ window.railAtlasDiagnostics=()=>({ready:state.ready,lines:lines.length,stations:
   if(state.ready)addMapLayer();else map.once('load',addMapLayer);
   if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{document.body.style.setProperty('--service-detail-top',Math.ceil(board.offsetTop+board.offsetHeight+10)+'px');}).observe(board);
   // Real-world notices deliberately use Date.now(), never the animation slider.
-  render();refresh();setInterval(render,15000);setInterval(refresh,60000);
+  scheduleHide();render();refresh();setInterval(render,15000);setInterval(refresh,60000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();refresh();}});
   window.railServiceDiagnostics=()=>({mode:feed.mode,notices:view.notices.length,stations:view.byStation.size,unavailable,loadedAt,attemptAt,coverage:view.coverage});
 })();
