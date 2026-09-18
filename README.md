@@ -2,9 +2,11 @@
 
 Service notices were added on 7 September 2026. The map supports persistent affected-station warnings and source links, but a continuous operator disruption feed is not connected. The shipped collection reports unknown status. See [Service notice sources and limitations](SERVICE_ALERTS.md). Keep `service-alerts.json` next to the HTML when hosting it.
 
-Open `bangkok_rail_3d_improved.html` in a modern browser. Internet access is required for background maps, roads, buildings and satellite imagery. Rail geometry and rendering libraries are embedded in the HTML.
+Open `index.html` in a modern browser. Internet access is required for background maps, roads, buildings and satellite imagery. Rail geometry and rendering libraries are embedded in the HTML.
 
 ## Updated controls
+
+- **Fares & times** opens a mobile-friendly journey desk for station-pair fares, published terminal first/last trains, effective dates and source links. See [18 September 2026 source review](TIMETABLE_REVIEW.md) for coverage and limitations.
 
 - The app starts at the current Bangkok time (UTC+7), continuously synchronized at 1× speed. `Now` restores this mode after exploring another time. The device clock must be correct.
 - `Train size` offers Medium, Large (default) and Extra large. Train symbols remain visible when zoomed out; detailed trains appear when zoomed in.
@@ -18,9 +20,9 @@ Open `bangkok_rail_3d_improved.html` in a modern browser. Internet access is req
 
 **Positions and speeds are timetable-informed estimates, not live train telemetry. No verified continuous live feed is connected.** The app cannot show actual train IDs, delays, cancellations or live arrival predictions.
 
-The model includes acceleration, cruising, braking, station dwell times, direction-specific departures where available, peak/off-peak intervals and trips continuing after midnight. BEM Blue and Purple travel times use differences between minute-rounded published last-train station times; missing terminal arrival intervals are approximated. BTS Gold uses the published 15/20-minute pattern. Other services combine published headways and representative running assumptions.
+The model includes acceleration, cruising, braking, station dwell times, direction-specific departures where available, peak/off-peak intervals and trips continuing after midnight. BEM Blue and Purple travel times use differences between minute-rounded published last-train station times; missing terminal arrival intervals are approximated. BTS Gold uses the currently published 8/10/15-minute pattern (July 2023 edition). Other services combine published headways and representative running assumptions.
 
-The BTS timetable page links Green Line material effective 1 November 2021 and Gold Line material effective 1 July 2022. These are historical reference schedules, not proof that every departure remains unchanged today. The BEM timetable page was retrieved on 6 September 2026. Weekends are detected automatically, but Thai public holidays are not separately modeled.
+The review on 18 September 2026 supersedes the older BTS PDFs linked by the English landing page: Green headways now use the January 2026 edition and Gold uses July 2023. Red terminal departures use explicit operator tables. BEM weekday terminals were rechecked on 18 September; weekend values retain the 6 September snapshot. Weekends are detected automatically, but Thai public holidays require manual selection. See the source review for unresolved coverage.
 
 Short workings, intermediate-origin first trains, depot movements, extra services, cross-line workings and real-time disruptions are not reproduced. This is a geographic rail visualizer, not a passenger journey-planning or operational control system.
 
@@ -41,8 +43,8 @@ Earlier browser checks confirmed current-time synchronization, English controls,
 - [Bangkok Transit Map — Oran Viriyincy](https://www.bangkoktransitmap.com/): reference map for lines and interchanges.
 - [Google Earth / Bangkok](https://earth.google.com/web/@13.75,100.54,0a,40000d,35y,0h,45t,0r): visual geographic reference.
 - [BTS timetable page](https://www.bts.co.th/eng/service/timetable.html)
-- [BTS Green Line timetable, effective 1 November 2021](https://www.bts.co.th/pdf/timetable_Green_1nov21.pdf)
-- [BTS Gold Line timetable, effective 1 July 2022](https://www.bts.co.th/pdf/timetable_Gold_1JUL22.pdf)
+- [BTS Green Line timetable, effective 1 January 2026](https://www.ebm.co.th/cms-routemap/WareHouse/TimeTable/GreenLine.pdf)
+- [BTS Gold Line timetable, effective 1 July 2023](https://www.ebm.co.th/cms-routemap/WareHouse/TimeTable/GoldLine.pdf)
 - [BEM timetable and fare calculator](https://metro.bemplc.co.th/Fare-Calculation?lang=en)
 - [BEM system map](https://metro.bemplc.co.th/MRT-System-Map)
 - [MRTA operating lines](https://www.mrta.co.th/en/opening)
