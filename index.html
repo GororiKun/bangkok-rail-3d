@@ -600,7 +600,7 @@ const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 const dock=$('atlasDock'),panel=$('atlasExplorer'),body=$('atlasBody'),title=$('atlasTitle');let section=null,marker;
 const link=(url,text)=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)} ↗</a>`;
 const stamp=t=>t?new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Bangkok',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(t))+' ICT':'Not checked';
-Object.entries({routes:'Routes',delays:'Delays',cameras:'Cameras',fares:'Fares',layers:'Map',time:'Time'}).forEach(([key,label])=>{const b=document.createElement('button');b.type='button';b.dataset.panel=key;b.setAttribute('aria-label',label);b.innerHTML=svg(key)+`<span>${label}</span>`;if(!['fares','time'].includes(key))b.setAttribute('aria-expanded','false');b.onclick=()=>open(key,b.matches(':focus-visible'));dock.append(b);});
+Object.entries({routes:'Routes',delays:'Delays',cameras:'Cameras',fares:'Fares',layers:'Map',time:'Time'}).forEach(([key,label])=>{const b=document.createElement('button');b.type='button';b.dataset.panel=key;b.setAttribute('aria-label',label);b.innerHTML=svg(key)+`<span>${label}</span>`;if(!['fares','time'].includes(key))b.setAttribute('aria-expanded','false');b.onclick=e=>open(key,e.detail===0);dock.append(b);});
 function active(key){dock.querySelectorAll('[aria-expanded]').forEach(b=>b.setAttribute('aria-expanded',String(b.dataset.panel===key)));}
 function close(){panel.hidden=true;closeSidebar();section=null;active(null);}
 $('atlasClose').onclick=()=>{const old=section;close();dock.querySelector(`[data-panel="${old}"]`)?.focus();};
