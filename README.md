@@ -16,6 +16,10 @@ Open `index.html` in a modern browser. Internet access is required for backgroun
 - Use the time slider, playback speed and weekday/weekend controls to explore service. These leave current-time synchronization; press `Now` to return.
 - Use the menu on small screens for line selection and station search. The information button explains sources and limitations.
 
+## October 2026 explorer update
+
+The new bottom dock opens Routes, Delays, Cameras, Fares, Map and Time. A source-attributed Sukhumvit street webcam plays on demand; service coverage clearly identifies unconnected live data. See [update and source review](UPDATE_2026-10-05.md).
+
 ## What the train positions mean
 
 **Positions and speeds are timetable-informed estimates, not live train telemetry. No verified continuous live feed is connected.** The app cannot show actual train IDs, delays, cancellations or live arrival predictions.
