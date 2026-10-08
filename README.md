@@ -18,7 +18,11 @@ Open `index.html` in a modern browser. Internet access is required for backgroun
 
 ## October 2026 explorer update
 
-The new bottom dock opens Routes, Delays, Cameras, Fares, Map and Time. A source-attributed Sukhumvit street webcam plays on demand; service coverage clearly identifies unconnected live data. See [update and source review](UPDATE_2026-10-05.md).
+The bottom dock opens Journey, Lines, Delays, Cameras, Fares, Map and Time. A source-attributed Sukhumvit street webcam plays on demand; service coverage clearly identifies unconnected live data. See [update and source review](UPDATE_2026-10-05.md).
+
+## Journey planning and travel-time colors
+
+**Journey** sets A/B points on the map or by station search and switches between Rail, Walk and Drive. It shows routes, estimated duration and 15/30/45-minute colors. Walking/driving use street-network data; rail colors are explicitly schematic walking catchments. Driving has no live traffic, and rail has no live departure or disruption feed. See [Journey planner sources, limitations and operation](JOURNEY_PLANNER.md).
 
 ## What the train positions mean
 
@@ -28,7 +32,7 @@ The model includes acceleration, cruising, braking, station dwell times, directi
 
 The review on 18 September 2026 supersedes the older BTS PDFs linked by the English landing page: Green headways now use the January 2026 edition and Gold uses July 2023. Red terminal departures use explicit operator tables. BEM weekday terminals were rechecked on 18 September; weekend values retain the 6 September snapshot. Weekends are detected automatically, but Thai public holidays require manual selection. See the source review for unresolved coverage.
 
-Short workings, intermediate-origin first trains, depot movements, extra services, cross-line workings and real-time disruptions are not reproduced. This is a geographic rail visualizer, not a passenger journey-planning or operational control system.
+Short workings, intermediate-origin first trains, depot movements, extra services, cross-line workings and real-time disruptions are not reproduced. Journey now offers estimated passenger routes; it is not an operational control system or a live departure service.
 
 ## Geographic detail
 
