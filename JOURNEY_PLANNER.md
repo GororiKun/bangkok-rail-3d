@@ -35,3 +35,9 @@ The area interaction is inspired by [Camille Roux's Brussels travel-time map](ht
 `work/verify-journey.cjs` checks rail waits, transfers, service closure, late running, the two Tha Phra visits, monotonic arrival times, invalid access costs, catchment bands and real returned route geometry decoding. Existing rail geometry/motion and service-alert provenance tests also pass.
 
 Browser checks cover real street routes and contours for walking and driving, an actual no-service message at 02:00, smartphone layout at 390 × 844 without horizontal overflow, and minimum 51 px dock-button widths at that size. Final release verification is recorded in the task; a preview alone is not proof of production publication.
+
+## Clear controls and route styling
+
+Clear A / B is visible above the Journey controls after either point is set, and directly on the map when the panel is closed. It cancels pending calculations and removes both endpoints, the route and reach colors. Each endpoint also has Clear A or Clear B inside the endpoint editor. Clearing one retains the other without issuing another request.
+
+All selected journeys use a solid magenta path with a white outline and repeated direction chevrons. This is independent of railway line colors and does not use MRT-style tunnel dashes. Mode and transfer details remain in the itinerary.
